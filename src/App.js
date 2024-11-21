@@ -43,11 +43,15 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Navigating to form2...");
     navigate("/form2");
   };
 
-  const routes = routers(items, setNewItem, handleSubmit);
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
+
+  const routes = routers(items, setNewItem, handleSubmit, handleSubmit2);
   const router = useRoutes(routes);
   return <div className="App">{router}</div>;
 }
