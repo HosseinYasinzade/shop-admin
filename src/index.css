@@ -50,13 +50,15 @@ body {
   font-size: 1.8rem;
 }
 /* form 1 */
-.form-1 {
+.form-1,
+.form-2 {
   display: flex;
   flex-direction: column;
   padding: 0 5rem;
 }
 
-.form-1 > input {
+.form-1 > input,
+.form-2 > input {
   height: 5rem;
   border: none;
   border-bottom: 1px solid #ccc;
