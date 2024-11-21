@@ -1,7 +1,15 @@
-import "./App.css";
+import Home from "./Components/Home";
+import routers from "./router";
+import { useRoutes } from "react-router-dom";
 
 function App() {
-  return <div className="App"></div>;
+  const router = useRoutes(routers);
+  return (
+    <div className="App">
+      <Home />
+      {router}
+    </div>
+  );
 }
 
 export default App;
