@@ -1,6 +1,6 @@
-function Form1() {
+function Form1({ handleSubmit }) {
   return (
-    <form className="form-1">
+    <form className="form-1" onSubmit={handleSubmit}>
       <input type="text" required placeholder="Product" autoFocus />
       <input type="text" required placeholder="brand" />
       <input type="text" required placeholder="Model" />

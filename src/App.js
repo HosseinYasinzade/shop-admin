@@ -1,9 +1,10 @@
 import { useState } from "react";
 import routers from "./router";
-import { useRoutes } from "react-router-dom";
+import { useRoutes, useNavigate } from "react-router-dom";
 import React from "react";
 
 function App() {
+  const navigate = useNavigate();
   const [items, setNewItem] = useState([
     {
       id: 1,
@@ -39,7 +40,14 @@ function App() {
       price: 17,
     },
   ]);
-  const routes = routers(items, setNewItem);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Navigating to form2...");
+    navigate("/form2");
+  };
+
+  const routes = routers(items, setNewItem, handleSubmit);
   const router = useRoutes(routes);
   return <div className="App">{router}</div>;
 }

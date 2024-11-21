@@ -2,7 +2,7 @@ import Home from "./Components/Home";
 import Form1 from "./Components/Form1";
 import Form2 from "./Components/Form2";
 
-function routers(items, setNewItem) {
+function routers(items, setNewItem, handleSubmit) {
   return [
     {
       path: "/",
@@ -10,7 +10,13 @@ function routers(items, setNewItem) {
     },
     {
       path: "/form1",
-      element: <Form1 />,
+      element: (
+        <Form1
+          items={items}
+          setNewItem={setNewItem}
+          handleSubmit={handleSubmit}
+        />
+      ),
     },
     {
       path: "/form2",
