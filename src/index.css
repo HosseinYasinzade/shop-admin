@@ -26,3 +26,26 @@ body {
   background-color: #30336b;
   border-radius: 0.7rem;
 }
+.main {
+  padding: 5rem 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cart {
+  color: #130f40;
+  background-color: #f6e58d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 30rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+.product-info-txt {
+  margin: 1rem 0;
+  font-size: 1.8rem;
+}
