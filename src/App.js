@@ -61,23 +61,14 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addItem();
-    setItems({
-      product: "",
-      brand: "",
-      color: "",
-      model: "",
-      summery: "",
-      type: "",
-      size: "",
-      price: "",
-    });
+    // بعد از ارسال فرم اول، به فرم دوم میرید
     navigate("/form2");
   };
 
   const handleSubmit2 = (e) => {
     e.preventDefault();
-    addItem();
+    // بعد از تکمیل فرم دوم، اطلاعات را به items اضافه میکنید
+    addItem(); // این کار اطلاعات فرم اول و دوم را با هم در یک شیء ذخیره می‌کند
     setItems({
       product: "",
       brand: "",
@@ -88,7 +79,7 @@ function App() {
       size: "",
       price: "",
     });
-    navigate("/");
+    navigate("/"); // بعد از ثبت محصول به صفحه اصلی باز می‌گردید
   };
 
   const routes = routers(items, setItems, handleSubmit, handleSubmit2);
