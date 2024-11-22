@@ -24,7 +24,7 @@ function App() {
   });
 
   const addItem = () => {
-    const id = items.length ? items[items.length - 1].id + 1 : 1; // محاسبه ID جدید
+    const id = items.length ? items[items.length - 1].id + 1 : 1;
     const myNewItem = { id, ...newItem };
     const updatedItems = [...items, myNewItem];
 
