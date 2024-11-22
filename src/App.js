@@ -5,6 +5,7 @@ import React from "react";
 
 function App() {
   const navigate = useNavigate();
+
   const [items, setNewItem] = useState([
     {
       id: 1,
@@ -41,17 +42,56 @@ function App() {
     },
   ]);
 
+  const [newItem, setItems] = useState({
+    product: "",
+    brand: "",
+    color: "",
+    model: "",
+    summery: "",
+    type: "",
+    size: "",
+    price: "",
+  });
+
+  const addItem = () => {
+    const id = items.length ? items[items.length - 1].id + 1 : 1; // محاسبه ID جدید
+    const myNewItem = { id, ...newItem };
+    setNewItem((prevItems) => [...prevItems, myNewItem]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    addItem();
+    setItems({
+      product: "",
+      brand: "",
+      color: "",
+      model: "",
+      summery: "",
+      type: "",
+      size: "",
+      price: "",
+    });
     navigate("/form2");
   };
 
   const handleSubmit2 = (e) => {
     e.preventDefault();
+    addItem();
+    setItems({
+      product: "",
+      brand: "",
+      color: "",
+      model: "",
+      summery: "",
+      type: "",
+      size: "",
+      price: "",
+    });
     navigate("/");
   };
 
-  const routes = routers(items, setNewItem, handleSubmit, handleSubmit2);
+  const routes = routers(items, setItems, handleSubmit, handleSubmit2);
   const router = useRoutes(routes);
   return <div className="App">{router}</div>;
 }
