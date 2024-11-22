@@ -5,42 +5,12 @@ import React from "react";
 
 function App() {
   const navigate = useNavigate();
+  const loadItemsFromLocalStorage = () => {
+    const storedItems = localStorage.getItem("items");
+    return storedItems ? JSON.parse(storedItems) : [];
+  };
 
-  const [items, setNewItem] = useState([
-    {
-      id: 1,
-      product: "shoes",
-      brand: "nike",
-      color: "green",
-      model: "CR7",
-      summery: "Hi this is very Cool",
-      type: "leather",
-      size: "44",
-      price: 25,
-    },
-    {
-      id: 2,
-      product: "shoes",
-      brand: "Adidas",
-      color: "red",
-      model: "zx",
-      summery: "Hi its nice",
-      type: "Plastic",
-      size: "38",
-      price: 20,
-    },
-    {
-      id: 3,
-      product: "shirt",
-      brand: "Zara",
-      color: "black",
-      model: "ABC",
-      summery: "very bad",
-      type: "cotton",
-      size: "XL",
-      price: 17,
-    },
-  ]);
+  const [items, setNewItem] = useState(loadItemsFromLocalStorage);
 
   const [newItem, setItems] = useState({
     product: "",
@@ -56,19 +26,21 @@ function App() {
   const addItem = () => {
     const id = items.length ? items[items.length - 1].id + 1 : 1; // محاسبه ID جدید
     const myNewItem = { id, ...newItem };
-    setNewItem((prevItems) => [...prevItems, myNewItem]);
+    const updatedItems = [...items, myNewItem];
+
+    setNewItem(updatedItems);
+
+    localStorage.setItem("items", JSON.stringify(updatedItems));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // بعد از ارسال فرم اول، به فرم دوم میرید
     navigate("/form2");
   };
 
   const handleSubmit2 = (e) => {
     e.preventDefault();
-    // بعد از تکمیل فرم دوم، اطلاعات را به items اضافه میکنید
-    addItem(); // این کار اطلاعات فرم اول و دوم را با هم در یک شیء ذخیره می‌کند
+    addItem();
     setItems({
       product: "",
       brand: "",
@@ -79,7 +51,7 @@ function App() {
       size: "",
       price: "",
     });
-    navigate("/"); // بعد از ثبت محصول به صفحه اصلی باز می‌گردید
+    navigate("/");
   };
 
   const routes = routers(items, setItems, handleSubmit, handleSubmit2);
