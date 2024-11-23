@@ -3,6 +3,7 @@ import routers from "./router";
 import { useRoutes, useNavigate } from "react-router-dom";
 import React from "react";
 import { LocalStorage, setItemsToLocalStorage } from "./Storage";
+import { createNewItem, resetItem } from "./CreateItem";
 
 function App() {
   const navigate = useNavigate();
@@ -21,8 +22,7 @@ function App() {
   });
 
   const addItem = () => {
-    const id = items.length ? items[items.length - 1].id + 1 : 1;
-    const myNewItem = { id, ...newItem };
+    const myNewItem = createNewItem(items, newItem);
     const updatedItems = [...items, myNewItem];
 
     setNewItem(updatedItems);
@@ -38,16 +38,7 @@ function App() {
   const handleSubmit2 = (e) => {
     e.preventDefault();
     addItem();
-    setItems({
-      product: "",
-      brand: "",
-      color: "",
-      model: "",
-      summery: "",
-      type: "",
-      size: "",
-      price: "",
-    });
+    setItems(resetItem());
     navigate("/");
   };
 
