@@ -2,15 +2,12 @@ import { useState } from "react";
 import routers from "./router";
 import { useRoutes, useNavigate } from "react-router-dom";
 import React from "react";
+import { LocalStorage, setItemsToLocalStorage } from "./Storage";
 
 function App() {
   const navigate = useNavigate();
-  const loadItemsFromLocalStorage = () => {
-    const storedItems = localStorage.getItem("items");
-    return storedItems ? JSON.parse(storedItems) : [];
-  };
 
-  const [items, setNewItem] = useState(loadItemsFromLocalStorage);
+  const [items, setNewItem] = useState(() => LocalStorage("items"));
 
   const [newItem, setItems] = useState({
     product: "",
@@ -30,7 +27,7 @@ function App() {
 
     setNewItem(updatedItems);
 
-    localStorage.setItem("items", JSON.stringify(updatedItems));
+    setItemsToLocalStorage("items", updatedItems);
   };
 
   const handleSubmit = (e) => {
