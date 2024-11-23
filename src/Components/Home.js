@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 function Home({ items, setNewItem }) {
-  console.log(items);
-
   return (
     <>
       <header className="header">

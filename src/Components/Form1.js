@@ -1,43 +1,44 @@
+import InputGenerator from "../InputGenerator";
+
 function Form1({ items, setNewItem, handleSubmit }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewItem((prevItem) => ({ ...prevItem, [name]: value }));
   };
+  const inputFields = [
+    {
+      name: "product",
+      type: "text",
+      placeholder: "product",
+      value: items.product,
+      required: true,
+      autoFocus: true,
+    },
+    {
+      name: "brand",
+      type: "text",
+      placeholder: "brand",
+      value: items.brand,
+      required: true,
+    },
+    {
+      name: "model",
+      type: "text",
+      placeholder: "model",
+      value: items.model,
+      required: true,
+    },
+    {
+      name: "color",
+      type: "text",
+      placeholder: "color",
+      value: items.color,
+      required: true,
+    },
+  ];
   return (
     <form className="form-1" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        required
-        placeholder="Product"
-        name="product"
-        autoFocus
-        value={items.product}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        required
-        placeholder="brand"
-        name="brand"
-        value={items.brand}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        required
-        placeholder="Model"
-        name="model"
-        value={items.model}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        required
-        placeholder="Color"
-        name="color"
-        value={items.color}
-        onChange={handleChange}
-      />
+      {InputGenerator(inputFields, handleChange)}
       <textarea
         placeholder="Summery"
         name="summery"
