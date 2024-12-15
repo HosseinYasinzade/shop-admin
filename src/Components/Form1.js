@@ -1,6 +1,13 @@
+import React, { useRef, useEffect } from "react";
 import InputGenerator from "../InputGenerator";
 
 function Form1({ items, setNewItem, handleSubmit }) {
+  const firstInputRef = useRef();
+
+  useEffect(() => {
+    firstInputRef.current.focus();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewItem((prevItem) => ({ ...prevItem, [name]: value }));
@@ -11,6 +18,7 @@ function Form1({ items, setNewItem, handleSubmit }) {
       type: "text",
       placeholder: "product",
       value: items.product,
+      ref: firstInputRef,
       required: true,
       autoFocus: true,
     },

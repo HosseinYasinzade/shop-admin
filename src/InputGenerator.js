@@ -2,7 +2,7 @@ import React from "react";
 
 const generateInputFields = (inputData, handleChange) => {
   return inputData.map(
-    ({ name, type, value, placeholder, required, autoFocus }) => (
+    ({ name, type, value, placeholder, required, autoFocus, ref }) => (
       <div className="input-field" key={name}>
         <input
           type={type}
@@ -12,6 +12,7 @@ const generateInputFields = (inputData, handleChange) => {
           required={required}
           autoFocus={autoFocus}
           placeholder={placeholder}
+          ref={ref}
         />
       </div>
     )
