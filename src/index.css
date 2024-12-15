@@ -92,15 +92,15 @@ textarea {
   align-items: center;
   background-color: #686de0;
   color: white;
-  padding: 50px 0;
+  padding: 50px;
 }
 .reg-title {
   margin-bottom: 20px;
 }
 .reg-submit {
-  padding: 20px 100px;
+  padding: 20px 50px;
   font-size: 25px;
-  margin: 0 35%;
+  margin: 0 38%;
   background-color: #130f40;
   color: white;
   border: none;

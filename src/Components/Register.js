@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../api/axios";
 
 const userRegex = /^[A-z][A-z0-9-_]{3,23}$/;
 const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const registerLink = "/register";
+const registerLink = "/users";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const userRef = useRef();
   const errorRef = useRef();
 
@@ -52,7 +55,7 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         registerLink,
         JSON.stringify({ user, password }),
         {
@@ -60,10 +63,13 @@ const Register = () => {
           withCredentials: true,
         }
       );
+      console.log("Response:", response.data);
       setUser("");
       setPassword("");
       setMatchPass("");
       setSuccess(true);
+
+      navigate("/home");
     } catch (error) {
       setError("Field");
       errorRef.current.focus();
@@ -88,6 +94,7 @@ const Register = () => {
             onChange={(e) => setUser(e.target.value)}
             value={user}
             required
+            placeholder="UserName"
             onFocus={() => setUserFocus(true)}
             onBlur={() => setUserFocus(false)}
           />
@@ -97,6 +104,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             required
+            placeholder="Password"
             onFocus={() => setPassFocus(true)}
             onBlur={() => setPassFocus(false)}
           />
@@ -106,6 +114,7 @@ const Register = () => {
             onChange={(e) => setMatchPass(e.target.value)}
             required
             value={matchPass}
+            placeholder="Match Password"
             onFocus={() => setMatchFocus(true)}
             onBlur={() => setMatchFocus(false)}
           />
