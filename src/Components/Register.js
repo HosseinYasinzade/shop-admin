@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axiosInstance from "../api/axios";
+import Login from "./Login";
 
 const userRegex = /^[A-z][A-z0-9-_]{3,23}$/;
 const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -130,7 +131,7 @@ const Register = () => {
           you have already account?
           <br />
           <span>
-            <a href="#">Sign in</a>
+            <Link to="/login">Log In</Link>
           </span>
         </p>
       </div>

@@ -2,6 +2,7 @@ import Home from "./Components/Home";
 import Form1 from "./Components/Form1";
 import Form2 from "./Components/Form2";
 import Register from "./Components/Register";
+import Login from "./Components/Login";
 
 function makeRoute(path, Component, props) {
   return {
@@ -15,6 +16,7 @@ function routers(items, setItems, handleSubmit, handleSubmit2) {
 
   return [
     makeRoute("/", Register, props),
+    makeRoute("/login", Login, props),
     makeRoute("/home", Home, props),
     makeRoute("/form1", Form1, { ...props, handleSubmit }),
     makeRoute("/form2", Form2, { ...props, handleSubmit2 }),
