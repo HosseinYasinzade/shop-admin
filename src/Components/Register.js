@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axiosInstance from "../api/axios";
-import Login from "./Login";
+import { registerUser } from "../api/axios";
 
-const userRegex = /^[A-z][A-z0-9-_]{3,23}$/;
-const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const registerLink = "/users";
+const userRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passRegex = /^.{6,}$/;
 
 const Register = () => {
   const navigate = useNavigate();
@@ -56,21 +54,14 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axiosInstance.post(
-        registerLink,
-        JSON.stringify({ user, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log("Response:", response.data);
+      const response = await registerUser(user, password);
+      console.log("Response:", response);
+
       setUser("");
       setPassword("");
       setMatchPass("");
-      setSuccess(true);
 
-      navigate("/home");
+      navigate("/login");
     } catch (error) {
       setError("Field");
       errorRef.current.focus();
@@ -95,7 +86,7 @@ const Register = () => {
             onChange={(e) => setUser(e.target.value)}
             value={user}
             required
-            placeholder="UserName"
+            placeholder="UserName - Email"
             onFocus={() => setUserFocus(true)}
             onBlur={() => setUserFocus(false)}
           />

@@ -1,18 +1,18 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../Context/AuthProvider";
-import axiosInstance from "../api/axios";
-
-const loginLink = "/auth";
+import { loginUser } from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const userRef = useRef();
   const errorRef = useRef();
 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -25,24 +25,26 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user || !password) {
+      setError("Username and password are required.");
+      return;
+    }
+
     try {
-      const response = await axiosInstance.post(
-        loginLink,
-        JSON.stringify({ user, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ user, password, accessToken });
-      setUser("");
-      setPassword("");
-      setSuccess(true);
+      const response = await loginUser(user, password);
+      const token = response.token;
+
+      if (response?.status === 200) {
+        const accessToken = response?.data?.accessToken;
+        setAuth({ user, password, accessToken });
+        setUser("");
+        setPassword("");
+        navigate("/home");
+      } else {
+        throw new Error("Login failed. Please try again.");
+      }
     } catch (error) {
       console.error(error);
-
       errorRef.current.focus();
     }
   };
@@ -59,6 +61,7 @@ const Login = () => {
             type="text"
             ref={userRef}
             autoComplete="off"
+            placeholder="UserName - Email"
             onChange={(e) => setUser(e.target.value)}
             value={user}
             required
@@ -68,6 +71,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             required
+            placeholder="Password"
           />
           <button className="log-submit">Log in</button>
         </form>
